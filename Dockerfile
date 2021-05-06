@@ -6,9 +6,6 @@ MAINTAINER alvin
 # account info (pwd is not necessary for this config)
 ARG user=docker
 #ARG pwd=1234
-#this script will create dir to  /home/{$user}/${worddir} like /home/docker/git_repository
-#ARG workdir=workspace
-#some large package should copy to /home/${user}/$(local_package}
 ARG local_package=utils_thisbuild
 ARG github=cei_pytorch_wavenet
 #vscode server 1.54.2
@@ -109,7 +106,9 @@ RUN python3 -m pip install --user pip==21.0.1;\
     python3 -m pip install --user tensorboardX==2.2;\
     python3 -m pip install --user nltk==3.5;\
     python3 -m pip install --user jupyter==1.0.0;\
-    python3 -m pip install --user librosa==0.8.0;\
+    python3 -m pip install --user keras==1.0.0;\
+    python3 -m pip install --user librosa==0.6.0;\
+    python3 -m pip install --user numba==0.48.0;\
     python3 -m pip install --user matplotlib==3.3.4;\
     python3 -m pip install --user docopt==0.6.2;\
     # project git clone
@@ -120,20 +119,22 @@ RUN python3 -m pip install --user pip==21.0.1;\
     # fix tensorboardX issue, add_image default dataformats information from CHW -> HWC
     sed -ir "s/= 'CHW')/= 'HWC')/" /home/${user}/.local/lib/python3.6/site-packages/tensorboardX/writer.py;\
     # fix vctk 0.92 format issue 
-    sed -Ei "s/(assert len\(fields\).*)/#\1\n            if len(fields)>6: continue/ " /home/docker/.local/lib/python3.6/site-packages/nnmnkwii/datasets/vctk.py
-
+    sed -Ei "s/(assert len\(fields\).*)/#\1\n            if len(fields)>6: continue/ " /home/docker/.local/lib/python3.6/site-packages/nnmnkwii/datasets/vctk.py;\
+    # fix 
+    sed -ir "s/from \.version/#from \.version/" ~/cei_pytorch_wavenet/wavenet_vocoder_2092a64/wavenet_vocoder/__init__.py
 
 # run ./utils_thisbuild/project_setup.sh
-COPY ${local_package} /home/${user}/${local_package}
-RUN  sudo chown -R ${user}:${user} /home/${user}/${local_package};\
-     echo "alias watch1=watch -n 0.5" >> ~/.zshrc;\
+#COPY ${local_package} /home/${user}/${github}/${local_package}
+#RUN  sudo chown -R ${user}:${user} /home/${user}/${github}${local_package};\
+RUN  echo "alias watch1=watch -n 0.5" >> ~/.zshrc;\
      echo "export PATH=/home/${user}/.local/bin:$PATH" >> ~/.zshrc;\
-     sh /home/${user}/${local_package}/project_setup.sh
+     sh /home/${user}/${github}/${local_package}/project_setup.sh
 
 # vscode server part
-RUN curl -sSL "https://update.code.visualstudio.com/commit:${vscommit}/server-linux-x64/stable" -o /home/${user}/${local_package}/vscode-server-linux-x64.tar.gz;\
+RUN curl -sSL "https://update.code.visualstudio.com/commit:${vscommit}/server-linux-x64/stable"\
+     -o /home/${user}/${github}/${local_package}/vscode-server-linux-x64.tar.gz;\
     mkdir -p ~/.vscode-server/bin/${vscommit};\
-    tar zxvf /home/${user}/${local_package}/vscode-server-linux-x64.tar.gz -C ~/.vscode-server/bin/${vscommit} --strip 1;\
+    tar zxvf /home/${user}/${github}/${local_package}/vscode-server-linux-x64.tar.gz -C ~/.vscode-server/bin/${vscommit} --strip 1;\
     touch ~/.vscode-server/bin/${vscommit}/0
 
 # jupyter notebook config 'auto newline in cell'
