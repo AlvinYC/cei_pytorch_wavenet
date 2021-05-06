@@ -1,0 +1,13 @@
+# alvin1080ti : training/synthsis
+docker run -it\
+ --rm\
+ --gpus=all\
+ --shm-size=256m\
+ -p 7788:22\
+ -p 8888:8888\
+ -v /media/alvin/HD/dataset_audio/raw/LJSpeech-1.1:/home/docker/LJSpeech\
+ -v /media/alvin/HD/eval_output:/home/docker/cei_pytorch_wavenet/wavenet_vocoder_2092a64/eval_output\
+ --name deepvoice r9y9vocoder:torch0.4
+
+
+
