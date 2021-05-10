@@ -15,6 +15,25 @@
                 "/home/docker/cei_pytorch_wavenet/utils_thisbuild/20180510_mixture_lj_checkpoint_step000320000_ema.pth",
                 "./eval_output"
               ]
-        }
+        },
+        {
+            "name": "gen_vctk_meta",
+            "type": "python",
+            "request": "launch",
+            "program": "cei_vctk2ljspeech_meta.py",
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "wav2mel",
+            "type": "python",
+            "request": "launch",
+            "program": "preprocess.py",
+            "console": "integratedTerminal",
+            "args":[ "ljspeech", 
+                "/home/docker/VCTK_r9y9_ljform/p225", 
+                "./data/vctk",
+                "--preset",
+                "/home/docker/cei_pytorch_wavenet/utils_thisbuild/20180510_mixture_lj_checkpoint_step000320000_ema.json"]
+        },        
     ]
 }
