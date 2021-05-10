@@ -1,0 +1,20 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "snythesis",
+            "type": "python",
+            "request": "launch",
+            "program": "synthesis.py",
+            "console": "integratedTerminal",
+            "args":["--preset","/home/docker/cei_pytorch_wavenet/utils_thisbuild/20180510_mixture_lj_checkpoint_step000320000_ema.json",
+                "--conditional","/home/docker/cei_pytorch_wavenet/wavenet_vocoder_2092a64/eval_output/r9y9_tts_mel.npy",
+                "/home/docker/cei_pytorch_wavenet/utils_thisbuild/20180510_mixture_lj_checkpoint_step000320000_ema.pth",
+                "./eval_output"
+              ]
+        }
+    ]
+}
