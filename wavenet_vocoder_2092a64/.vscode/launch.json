@@ -11,10 +11,16 @@
             "program": "synthesis.py",
             "console": "integratedTerminal",
             "args":["--preset","/home/docker/cei_pytorch_wavenet/utils_thisbuild/20180510_mixture_lj_checkpoint_step000320000_ema.json",
-                "--conditional","/home/docker/cei_pytorch_wavenet/wavenet_vocoder_2092a64/eval_output/r9y9_tts_mel.npy",
+                "--conditional","/home/docker/cei_pytorch_wavenet/wavenet_vocoder_2092a64/eval_output/r9y9-tts-mel.npy",
                 "/home/docker/cei_pytorch_wavenet/utils_thisbuild/20180510_mixture_lj_checkpoint_step000320000_ema.pth",
                 "./eval_output"
               ]
+            // terminal run by the following sample
+            // python synthesis.py --preset="/home/docker/cei_pytorch_wavenet/utils_thisbuild/20180510_mixture_lj_checkpoint_step000320000_ema.json"\
+            //  --conditional="/home/docker/cei_pytorch_vc/deepvoice3_0421749/eval_output/r9y9-tts-mel.npy"\
+            //  "/home/docker/cei_pytorch_wavenet/utils_thisbuild/20180510_mixture_lj_checkpoint_step000320000_ema.pth"\
+            //  "./eval_output"
+
         },
         {
             "name": "gen_vctk_meta",
