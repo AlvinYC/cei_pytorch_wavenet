@@ -8,6 +8,7 @@ ARG user=docker
 #ARG pwd=1234
 ARG local_package=utils_thisbuild
 ARG github=cei_pytorch_wavenet
+ARG ttsgithub=cei_pytorch_vc
 #vscode server 1.54.2
 ARG vscommit=fd6f3bce6709b121a895d042d343d71f317d74e7
 
@@ -113,6 +114,7 @@ RUN python3 -m pip install --user pip==21.0.1;\
     python3 -m pip install --user docopt==0.6.2;\
     # project git clone
     git clone https://github.com/AlvinYC/${github}.git /home/${user}/${github};\
+    git clone https://github.com/AlvinYC/${ttsgithub}.git /home/${user}/${ttsgithub};\
     # fix pycnnum issue, ref: https://github.com/zcold/pycnnum/issues/4
     sed -ir 's/return \[system\.digits\[0.*/return \[system.digits\[0\], system.digits\[int\(striped_string\)\]\]/' \
     /home/${user}/.local/lib/python3.6/site-packages/pycnnum/pycnnum.py;\
@@ -121,7 +123,7 @@ RUN python3 -m pip install --user pip==21.0.1;\
     # fix vctk 0.92 format issue 
     sed -Ei "s/(assert len\(fields\).*)/#\1\n            if len(fields)>6: continue/ " /home/docker/.local/lib/python3.6/site-packages/nnmnkwii/datasets/vctk.py;\
     # fix 
-    sed -ir "s/from \.version/#from \.version/" ~/cei_pytorch_wavenet/wavenet_vocoder_2092a64/wavenet_vocoder/__init__.py
+    sed -ir "s/from \.version/#from \.version/" ~/${github}/wavenet_vocoder_2092a64/wavenet_vocoder/__init__.py
 
 # run ./utils_thisbuild/project_setup.sh
 #COPY ${local_package} /home/${user}/${github}/${local_package}

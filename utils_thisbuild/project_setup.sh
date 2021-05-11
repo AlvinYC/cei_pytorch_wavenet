@@ -1,4 +1,5 @@
 GITHUB="cei_pytorch_wavenet"
+GITHUBTTS="cei_pytorch_vc"
 #cd ~/cei_pytorch_wavenet/utils_thisbuild
 cd ~/$GITHUB/utils_thisbuild
 
@@ -23,3 +24,8 @@ mkdir -p ~/$GITHUB/wavenet_vocoder_2092a64/checkpoints
 python -c "import nltk; nltk.download('cmudict')"
 python -c "import nltk; nltk.download('punkt')"
 
+# Tacotron TTS part
+mkdir -p ~/$GITHUBTTS/deepvoice3_0421749/checkpoints
+sudo /home/docker/.local/bin/gdown --id "1VFNPydEDdz9jWhZeAYjodtygM_87mXm1"
+sudo chown docker:docker 20210426_cei_ljspeech_vctk_p225_checkpoint_step000020000.pth
+mv 20210426_cei_ljspeech_vctk_p225_checkpoint_step000020000.pth ~/$GITHUBTTS/deepvoice3_0421749/checkpoints/
