@@ -1,0 +1,45 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "snythesis",
+            "type": "python",
+            "request": "launch",
+            "program": "synthesis.py",
+            "console": "integratedTerminal",
+            "args":["--preset","/home/docker/cei_pytorch_wavenet/utils_thisbuild/20180510_mixture_lj_checkpoint_step000320000_ema.json",
+                "--conditional","/home/docker/cei_pytorch_wavenet/wavenet_vocoder_2092a64/eval_output/r9y9-tts-mel.npy",
+                "/home/docker/cei_pytorch_wavenet/utils_thisbuild/20180510_mixture_lj_checkpoint_step000320000_ema.pth",
+                "./eval_output"
+              ]
+            // terminal run by the following sample
+            // python synthesis.py --preset="/home/docker/cei_pytorch_wavenet/utils_thisbuild/20180510_mixture_lj_checkpoint_step000320000_ema.json"\
+            //  --conditional="/home/docker/cei_pytorch_vc/deepvoice3_0421749/eval_output/r9y9-tts-mel.npy"\
+            //  "/home/docker/cei_pytorch_wavenet/utils_thisbuild/20180510_mixture_lj_checkpoint_step000320000_ema.pth"\
+            //  "./eval_output"
+
+        },
+        {
+            "name": "gen_vctk_meta",
+            "type": "python",
+            "request": "launch",
+            "program": "cei_vctk2ljspeech_meta.py",
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "wav2mel",
+            "type": "python",
+            "request": "launch",
+            "program": "preprocess.py",
+            "console": "integratedTerminal",
+            "args":[ "ljspeech", 
+                "/home/docker/VCTK_r9y9_ljform/p225", 
+                "./data/vctk",
+                "--preset",
+                "/home/docker/cei_pytorch_wavenet/utils_thisbuild/20180510_mixture_lj_checkpoint_step000320000_ema.json"]
+        },        
+    ]
+}
